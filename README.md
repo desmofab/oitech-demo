@@ -2,10 +2,10 @@
 AngularJS demo
 
 ## Install
-yarn
+```yarn```
 
 ## Usage
-yarn start and then open http://127.0.0.1:8000
+```yarn start``` and then open http://127.0.0.1:8000
 
 
 Il candidato dovrà realizzare un'applicazione front-end AngularJS il cui scopo è quello di visualizzare le
