@@ -9,8 +9,6 @@ var app = angular.module('oitechDemo', [
     'angular-loading-bar',
     'getFact',
 ])
-//.constant('API_SERVER', env.apiUrl);
-
 
 app.controller('AppCtrl', ['$scope', function($scope){
   

@@ -1,18 +1,14 @@
 'use strict';
 
 angular.
-  module('api.jwt').
-  factory('Jwt', ['$resource', 'API_SERVER',
-    function($resource, API_SERVER) {
-      return $resource(API_SERVER+'/api/clienti/:pk/', {format: 'json'}, {
-        query: {
-          method: 'GET',
-          isArray: false
-        },
-        add: {method: 'POST'},
-        mod: {method: 'PUT',
-              params: {pk: '@pk'}
-             }
-      });
-    }
-  ]);
+    module('api.jwt').
+    factory('Jwt', ['$resource',
+        function($resource) {
+        return $resource('https://srv01.escgroup.it/appui/v1/token', {}, {
+            query: {
+            method: 'GET',
+            isArray: false
+            }
+        });
+        }
+    ]);
