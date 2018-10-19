@@ -32,6 +32,7 @@ function GetFactController(Jwt, Fact, $mdToast) {
 
     
     this.getToken = function(){
+        
         Jwt.query().$promise.then(function(result){
 
             self.query.category = self.getCategoryFromToken(result);
