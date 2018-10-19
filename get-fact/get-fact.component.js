@@ -4,59 +4,75 @@ angular.
     module('getFact').
     component('getFact', {
         templateUrl: 'get-fact/get-fact.template.html',
-        controller: ['Jwt', GetFactController]});
+        controller: ['Jwt', 'Fact', '$mdToast', GetFactController]});
 
-function GetFactController(Jwt) {
+function GetFactController(Jwt, Fact, $mdToast) {
 
     var self = this;
 
     //Config md-datatable
     this.selected = [];
     this.promise = [];
-    this.clienti = [];
+    this.properties = [];
     this.count = 0;
-    this.next = "";
-    this.previous = "";
+    this.next = '';
+    this.previous = '';
     this.query = {
+        category: ''
     };
 
 
+    this.getCategoryFromToken = function(token){
+
+        var jwtPayload = token.jwt.split('.')[1];
+        var jwtCategory = JSON.parse( atob(jwtPayload) ).category;
+        
+        return jwtCategory == 'random' ? undefined : jwtCategory;
+    }
+
+    
+    this.getToken = function(){
+        Jwt.query().$promise.then(function(result){
+
+            self.query.category = self.getCategoryFromToken(result);
+
+            // Populate table with new data
+            self.showFactInTable();
+
+        })
+        .catch(function(error) {
+            
+            // Reset table
+            self.properties = [];
+
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent('Errore del server. Ritenta sarai più fortunato')
+                    .position('bottom right')
+                    .hideDelay(3000)
+            );
+        });
+    }
 
 
+    this.showFactInTable = function(){
 
+        self.promise = Fact.query(self.query, gotTheFact);
+    };
 
+    function gotTheFact(theFact) {
+        //console.log(theFact);
+        
+        var rows = [];
+        var category = theFact.category ? theFact.category[0] : 'null';
+        
+        rows.push({pk: 0, key: 'Category', value: category});
+        rows.push({pk: 1, key: 'ID', value: theFact.id});
+        rows.push({pk: 2, key: 'Url', value: theFact.url});
+        rows.push({pk: 3, key: 'Value', value: theFact.value});
 
-    //Cliente.delete({clienti: this.selected}).then(this.getClienti);
+        self.properties = rows;
+    }
 
-
-
-
- 
-
-//   /* CARICA LISTA CLIENTI con filtro definito in query */
-//   this.getClienti = function () {
-
-//     self.promise = Cliente.query(self.query, success).$promise
-//         .then(function(result) {
-//           console.log(result);
-//         }).catch(function(error) {
-//           console.log(error);
-//         });
-//   };
-
-//   //CALLBACK: Clienti caricati con successo
-//   function success(clienti) {
-//     //console.log(clienti);
-//     self.clienti = clienti.results;
-//     self.count = clienti.count;
-//     self.next = clienti.next;
-//     self.previous = clienti.previous;
-//   }
-
-
-
-
-//   //FIRST TABLE LOADING
-//   this.getClienti();
 
 }

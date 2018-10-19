@@ -1,9 +1,33 @@
-<!-- <div layout="column" layout-align="center center" class="logo-container">
-  
-</div> -->
+<md-content layout="column">
+    <md-card layout-align="center center">
 
-<md-content layout="column" flex>
-    <md-card>
+        <img id="logo" alt="Chuck Norris Jokes Api - JSON API for random Chuck Norris jokes" 
+             src="https://assets.chucknorris.host/img/chucknorris_logo_coloured_small.png"
+             srcset="https://assets.chucknorris.host/img/chucknorris_logo_coloured_small@2x.png 720w">
         
+        <md-button class="md-raised md-primary" ng-click="$ctrl.getToken()">
+            GET FACT!
+        </md-button>
+        
+        <md-card layout-align="center center">
+            <md-table-container>
+                <table md-table md-row-select="false" ng-model="$ctrl.selected" md-progress="$ctrl.promise">
+                    <thead md-head>
+                    <tr md-row>
+                        <th ng-hide="true" md-column md-numeric md-order-by="pk"><span>pk</span></th>
+                        <th md-column><span>Key</span></th>
+                        <th md-column><span>Value</span></th>
+                    </tr>
+                    </thead>
+                    <tbody md-body>
+                    <tr md-row md-select="property" md-select-id="pk" ng-repeat="property in $ctrl.properties">
+                        <td ng-hide="true" md-cell>{{property.pk}}</td>
+                        <td md-cell>{{property.key}}</td>
+                        <td md-cell>{{property.value}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+        </md-card>
     </md-card>
 </md-content>

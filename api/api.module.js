@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('api', ['api.jwt']);
+angular.module('api', ['api.jwt', 'api.fact']);
