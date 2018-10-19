@@ -5,7 +5,7 @@ angular.
     config(['$locationProvider' ,'$routeProvider', '$httpProvider', 'cfpLoadingBarProvider', '$resourceProvider',
         function config($locationProvider, $routeProvider, $httpProvider, cfpLoadingBarProvider, $resourceProvider) {
 
-            //NO SPINNER WHEN $http IS CALLED
+            //No spinner when $http is called
             cfpLoadingBarProvider.includeSpinner = false;            
 
             $locationProvider.hashPrefix('!');
@@ -13,6 +13,7 @@ angular.
             // Don't strip trailing slashes from calculated URLs
             $resourceProvider.defaults.stripTrailingSlashes = false;        
 
+            // Routing plan
             $routeProvider
                 .when('/get-fact/', {
                     template: '<get-fact></get-fact>'

@@ -61,8 +61,7 @@ function GetFactController(Jwt, Fact, $mdToast) {
     };
 
     function gotTheFact(theFact) {
-        //console.log(theFact);
-        
+
         var rows = [];
         var category = theFact.category ? theFact.category[0] : 'null';
         
